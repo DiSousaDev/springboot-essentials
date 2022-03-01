@@ -1,6 +1,7 @@
 package br.dev.diego.springbootessentials.controller;
 
 import br.dev.diego.springbootessentials.domain.Anime;
+import br.dev.diego.springbootessentials.service.AnimeService;
 import br.dev.diego.springbootessentials.util.DateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,18 +14,21 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
-@RequestMapping("anime")
+@RequestMapping("animes")
 public class AnimeController {
 
-    private static Logger LOG = LoggerFactory.getLogger(AnimeController.class);
+    private static final Logger LOG = LoggerFactory.getLogger(AnimeController.class);
+
+    @Autowired
+    private AnimeService animeService;
 
     @Autowired
     private DateUtil dateUtil;
 
-    @GetMapping(path = "/list")
+    @GetMapping
     public List<Anime> list() {
         LOG.info(dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
-        return List.of(new Anime("DBZ"), new Anime("Berserk"));
+        return animeService.listAll();
     }
 
 
