@@ -5,6 +5,7 @@ import br.dev.diego.springbootessentials.domain.AnimePutRequestBody;
 import br.dev.diego.springbootessentials.domain.mapper.AnimeMapper;
 import br.dev.diego.springbootessentials.entities.Anime;
 import br.dev.diego.springbootessentials.repository.AnimeRepository;
+import br.dev.diego.springbootessentials.service.exception.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -31,7 +32,7 @@ public class AnimeService {
 
     public Anime findByIdOrThrowBadRequestException(Long id) {
         return repository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Anime not found"));
+                .orElseThrow(() -> new BadRequestException("Anime not found"));
     }
 
 
