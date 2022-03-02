@@ -2,23 +2,15 @@ package br.dev.diego.springbootessentials.handler;
 
 import java.time.LocalDateTime;
 
-public class StandardError {
+public abstract class StandardError {
 
-    private String title;
-    private int status;
-    private String details;
-    private String developerMessage;
-    private LocalDateTime timestamp;
+    protected String title;
+    protected int status;
+    protected String details;
+    protected String developerMessage;
+    protected LocalDateTime timestamp;
 
     public StandardError() {
-    }
-
-    public StandardError(String title, int status, String details, String developerMessage, LocalDateTime timestamp) {
-        this.title = title;
-        this.status = status;
-        this.details = details;
-        this.developerMessage = developerMessage;
-        this.timestamp = timestamp;
     }
 
     public String getTitle() {
