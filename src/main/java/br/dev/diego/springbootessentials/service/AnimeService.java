@@ -2,6 +2,7 @@ package br.dev.diego.springbootessentials.service;
 
 import br.dev.diego.springbootessentials.domain.AnimePostRequestBody;
 import br.dev.diego.springbootessentials.domain.AnimePutRequestBody;
+import br.dev.diego.springbootessentials.domain.mapper.AnimeMapper;
 import br.dev.diego.springbootessentials.entities.Anime;
 import br.dev.diego.springbootessentials.repository.AnimeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,9 @@ public class AnimeService {
     @Autowired
     private AnimeRepository repository;
 
+    @Autowired
+    private AnimeMapper animeMapper;
+
     public List<Anime> listAll() {
         return repository.findAll();
     }
@@ -28,10 +32,7 @@ public class AnimeService {
 
 
     public Anime save(AnimePostRequestBody animePostRequestBody) {
-        Anime anime = new Anime();
-        anime.setName(animePostRequestBody.getName());
-        anime = repository.save(anime);
-        return anime;
+        return repository.save(animeMapper.toAnime(animePostRequestBody));
     }
 
     public void delete(Long id) {
@@ -40,9 +41,6 @@ public class AnimeService {
 
     public void update(AnimePutRequestBody animePutRequestBody) {
         findByIdOrThrowBadRequestException(animePutRequestBody.getId());
-        Anime anime = new Anime();
-        anime.setId(animePutRequestBody.getId());
-        anime.setName(animePutRequestBody.getName());
-        repository.save(anime);
+        repository.save(animeMapper.toAnime(animePutRequestBody));
     }
 }
