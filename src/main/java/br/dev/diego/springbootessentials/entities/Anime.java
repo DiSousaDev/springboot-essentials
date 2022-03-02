@@ -1,4 +1,4 @@
-package br.dev.diego.springbootessentials.domain;
+package br.dev.diego.springbootessentials.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

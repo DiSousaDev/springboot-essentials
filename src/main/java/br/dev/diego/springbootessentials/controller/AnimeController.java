@@ -1,6 +1,8 @@
 package br.dev.diego.springbootessentials.controller;
 
-import br.dev.diego.springbootessentials.domain.Anime;
+import br.dev.diego.springbootessentials.domain.AnimePostRequestBody;
+import br.dev.diego.springbootessentials.domain.AnimePutRequestBody;
+import br.dev.diego.springbootessentials.entities.Anime;
 import br.dev.diego.springbootessentials.service.AnimeService;
 import br.dev.diego.springbootessentials.util.DateUtil;
 import org.slf4j.Logger;
@@ -41,11 +43,11 @@ public class AnimeController {
     @GetMapping(path = "/{id}")
     public ResponseEntity<Anime> findById(@PathVariable Long id) {
         LOG.info(dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
-        return ResponseEntity.ok(animeService.findById(id));
+        return ResponseEntity.ok(animeService.findByIdOrThrowBadRequestException(id));
     }
 
     @PostMapping
-    public ResponseEntity<Anime> save(@RequestBody Anime anime) {
+    public ResponseEntity<Anime> save(@RequestBody AnimePostRequestBody anime) {
         return new ResponseEntity<>(animeService.save(anime), HttpStatus.CREATED);
     }
 
@@ -56,8 +58,8 @@ public class AnimeController {
     }
 
     @PutMapping
-    public ResponseEntity<Void> update(@RequestBody Anime anime) {
-        animeService.update(anime);
+    public ResponseEntity<Void> update(@RequestBody AnimePutRequestBody animePutRequestBody) {
+        animeService.update(animePutRequestBody);
         return ResponseEntity.noContent().build();
     }
 
