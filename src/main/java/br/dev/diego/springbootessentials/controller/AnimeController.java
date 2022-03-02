@@ -6,7 +6,9 @@ import br.dev.diego.springbootessentials.util.DateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,10 +28,15 @@ public class AnimeController {
     private DateUtil dateUtil;
 
     @GetMapping
-    public List<Anime> list() {
+    public ResponseEntity<List<Anime>> list() {
         LOG.info(dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
-        return animeService.listAll();
+        return ResponseEntity.ok(animeService.listAll());
     }
 
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<Anime> findById(@PathVariable Long id) {
+        LOG.info(dateUtil.formatLocalDateTimeToDatabaseStyle(LocalDateTime.now()));
+        return ResponseEntity.ok(animeService.findById(id));
+    }
 
 }
