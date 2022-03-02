@@ -7,9 +7,8 @@ import br.dev.diego.springbootessentials.entities.Anime;
 import br.dev.diego.springbootessentials.repository.AnimeRepository;
 import br.dev.diego.springbootessentials.service.exception.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -22,28 +21,33 @@ public class AnimeService {
     @Autowired
     private AnimeMapper animeMapper;
 
+    @Transactional(readOnly = true)
     public List<Anime> listAll() {
         return repository.findAll();
     }
 
+    @Transactional(readOnly = true)
     public List<Anime> findByName(String name) {
         return repository.findByName(name);
     }
 
+    @Transactional(readOnly = true)
     public Anime findByIdOrThrowBadRequestException(Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new BadRequestException("Anime not found"));
     }
 
-
+    @Transactional
     public Anime save(AnimePostRequestBody animePostRequestBody) {
         return repository.save(animeMapper.toAnime(animePostRequestBody));
     }
 
+    @Transactional
     public void delete(Long id) {
         repository.delete(findByIdOrThrowBadRequestException(id));
     }
 
+    @Transactional
     public void update(AnimePutRequestBody animePutRequestBody) {
         findByIdOrThrowBadRequestException(animePutRequestBody.getId());
         repository.save(animeMapper.toAnime(animePutRequestBody));
