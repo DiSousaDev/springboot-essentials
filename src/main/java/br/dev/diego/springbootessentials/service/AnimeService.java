@@ -7,6 +7,8 @@ import br.dev.diego.springbootessentials.entities.Anime;
 import br.dev.diego.springbootessentials.repository.AnimeRepository;
 import br.dev.diego.springbootessentials.service.exception.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,8 +24,8 @@ public class AnimeService {
     private AnimeMapper animeMapper;
 
     @Transactional(readOnly = true)
-    public List<Anime> listAll() {
-        return repository.findAll();
+    public Page<Anime> listAll(Pageable pageable) {
+        return repository.findAll(pageable);
     }
 
     @Transactional(readOnly = true)
