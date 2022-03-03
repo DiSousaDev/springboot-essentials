@@ -2,7 +2,7 @@ package br.dev.diego.springbootessentials.handler;
 
 import java.time.LocalDateTime;
 
-public abstract class StandardError {
+public class StandardError {
 
     protected String title;
     protected int status;
