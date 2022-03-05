@@ -29,6 +29,11 @@ public class AnimeService {
     }
 
     @Transactional(readOnly = true)
+    public List<Anime> listAll() {
+        return repository.findAll();
+    }
+
+    @Transactional(readOnly = true)
     public List<Anime> findByName(String name) {
         return repository.findByName(name);
     }
