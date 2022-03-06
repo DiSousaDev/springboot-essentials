@@ -4,7 +4,10 @@ import br.dev.diego.springbootessentials.entities.Anime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
@@ -30,6 +33,24 @@ public class SpringClient {
                 HttpMethod.GET, null, new ParameterizedTypeReference<>() {});
         LOG.info(exchange.getBody().toString());
 
+//        Anime newAnime = new Anime();
+//        newAnime.setName("kingdom");
+//        Anime animeSaved = new RestTemplate().postForObject("http://localhost:8080/animes/", newAnime, Anime.class);
+//        LOG.info("Saved anime {}", animeSaved);
+
+        Anime samuraiChamploo = new Anime();
+        samuraiChamploo.setName("Samurai Champloo");
+        ResponseEntity<Anime> samuraiChamplooSaved = new RestTemplate().exchange("http://localhost:8080/animes/",
+                HttpMethod.POST,
+                new HttpEntity<>(samuraiChamploo, createJsonHeader()),
+                Anime.class);
+        LOG.info("Saved anime {}", samuraiChamplooSaved);
+    }
+
+    private static HttpHeaders createJsonHeader() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        return headers;
     }
 
 }
