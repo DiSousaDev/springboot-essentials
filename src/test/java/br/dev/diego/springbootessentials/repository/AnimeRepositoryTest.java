@@ -1,6 +1,7 @@
 package br.dev.diego.springbootessentials.repository;
 
 import br.dev.diego.springbootessentials.AnimeMother;
+import br.dev.diego.springbootessentials.domain.AnimePostRequestBody;
 import br.dev.diego.springbootessentials.entities.Anime;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -58,8 +59,8 @@ class AnimeRepositoryTest {
     @Test
     @DisplayName("Find by name returns list of anime when successful")
     void findByNameReturnListOfAnimeWhenSuccessful() {
-        Anime animeToBeListed1 = AnimeMother.getAnime();
-        Anime animeToBeListed2 = AnimeMother.getAnime();
+        Anime animeToBeListed1 = AnimeMother.getNewAnime();
+        Anime animeToBeListed2 = AnimeMother.getNewAnime();
 
         animeRepository.save(animeToBeListed1);
         animeRepository.save(animeToBeListed2);
