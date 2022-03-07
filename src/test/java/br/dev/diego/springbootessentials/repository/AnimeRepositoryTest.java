@@ -77,7 +77,6 @@ class AnimeRepositoryTest {
     void findByNameReturnEmptyListWhenAnimeIsNotFound() {
 
         List<Anime> animeList = animeRepository.findByName("Unkwnon");
-
         assertTrue(animeList.isEmpty());
 
     }
